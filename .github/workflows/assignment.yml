@@ -1,0 +1,11 @@
+name: TDS assignment check
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 24f2001310@ds.study.iitm.ac.in
+        run: python -c "import json; assert json.load(open('email.json'))['email'] == '24f2001310@ds.study.iitm.ac.in'; print('Assignment files verified')"
