@@ -5,6 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sentiment import classify
 
 ROOT = Path(__file__).resolve().parent
 TELEMETRY = json.loads((ROOT / 'telemetry.json').read_text())
@@ -48,3 +49,10 @@ def students(classes: list[str] | None = Query(default=None, alias='class')):
 @app.get('/')
 def home():
     return {'message':'TDS GA0 API', 'endpoints':['/api','/api/latency']}
+
+class Sentences(BaseModel):
+    sentences: list[str]
+
+@app.post('/sentiment')
+def sentiment(body: Sentences):
+    return {'results':[{'sentence':text, 'sentiment':classify(text)} for text in body.sentences]}
