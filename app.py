@@ -12,7 +12,7 @@ TELEMETRY = json.loads((ROOT / 'telemetry.json').read_text())
 with (ROOT / 'students.csv').open(newline='', encoding='utf-8') as file:
     STUDENTS = [{'studentId':int(row['studentId']), 'class':row['class']} for row in csv.DictReader(file)]
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['GET','POST','OPTIONS'], allow_headers=['*'])
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['GET','POST','OPTIONS'], allow_headers=['*'], expose_headers=['Access-Control-Allow-Origin'])
 
 class AnalyticsRequest(BaseModel):
     regions: list[str]
