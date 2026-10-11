@@ -25,6 +25,7 @@ def percentile(values, probability):
     upper = min(lower+1, len(values)-1)
     return values[lower] + (values[upper]-values[lower]) * (position-lower)
 
+@app.post('/')
 @app.post('/api/latency')
 def latency(body: AnalyticsRequest):
     stats = []
